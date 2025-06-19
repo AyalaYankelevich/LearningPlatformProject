@@ -1,6 +1,11 @@
 const User = require('../models/userModel');
 const Prompt = require('../models/promptModel');
 
+exports.createAdmin = async ({ firstName, lastName, id, email, password, role }) => {
+    const newUser = new User({ firstName, lastName, id, email, password, role });
+    return await newUser.save();
+};
+
 exports.getAllUsers = async () => {
     return await User.find();
 };
