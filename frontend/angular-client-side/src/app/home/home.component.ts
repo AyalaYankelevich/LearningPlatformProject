@@ -1,0 +1,86 @@
+import { Component } from '@angular/core';
+import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
+
+@Component({
+  selector: 'app-home',
+  standalone: true,
+  imports: [ReactiveFormsModule, CommonModule],
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.css']
+})
+export class HomeComponent {
+  // For /api/hello test
+  message = '';
+
+  // UI
+  isLogin = true;
+  authMsg = '';
+  loading = false;
+
+  // Login and Signup forms (declare first, assign in constructor)
+  loginForm: any;
+  signupForm: any;
+
+  constructor(private fb: FormBuilder, private http: HttpClient) {
+    // Initialize forms here, after fb is available
+    this.loginForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required]]
+    });
+
+    this.signupForm = this.fb.group({
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      id: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required]
+    });
+
+    // Test hello
+    this.http.get<{message: string}>('http://localhost:5059/api/hello').subscribe(
+      res => this.message = res.message,
+      err => this.message = 'Error connecting to backend'
+    );
+  }
+
+  toggleForm() {
+    this.isLogin = !this.isLogin;
+    this.authMsg = '';
+  }
+
+  onLogin() {
+    if (this.loginForm.invalid) return;
+    this.loading = true;
+    this.http.post<{token: string}>('http://localhost:5059/api/auth/login', this.loginForm.value)
+      .subscribe({
+        next: res => {
+          this.authMsg = 'Login successful! 🎉';
+          this.loading = false;
+          // Optionally: save token and redirect
+        },
+        error: err => {
+          this.authMsg = err.error?.message || 'Login failed';
+          this.loading = false;
+        }
+      });
+  }
+
+  onSignup() {
+    if (this.signupForm.invalid) return;
+    this.loading = true;
+    this.http.post<{token: string}>('http://localhost:5059/api/auth/register', this.signupForm.value)
+      .subscribe({
+        next: res => {
+          this.authMsg = 'Signup successful! 🎉 You can now log in.';
+          this.loading = false;
+          this.isLogin = true;
+        },
+        error: err => {
+          this.authMsg = err.error?.message || 'Signup failed';
+          this.loading = false;
+        }
+      });
+  }
+}

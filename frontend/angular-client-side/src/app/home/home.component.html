@@ -1,0 +1,27 @@
+<div class="container">
+  <h2 *ngIf="isLogin">Log In</h2>
+  <h2 *ngIf="!isLogin">Sign Up</h2>
+
+  <form *ngIf="isLogin" [formGroup]="loginForm" (ngSubmit)="onLogin()" class="pretty-form">
+    <input formControlName="email" type="email" placeholder="Email" />
+    <input formControlName="password" type="password" placeholder="Password" />
+    <button type="submit" [disabled]="loading">Log In</button>
+    <div class="toggle-text">
+      Don't have an account? <span class="toggle-link" (click)="toggleForm()">Sign Up</span>
+    </div>
+  </form>
+
+  <form *ngIf="!isLogin" [formGroup]="signupForm" (ngSubmit)="onSignup()" class="pretty-form">
+    <input formControlName="firstName" placeholder="First Name" />
+    <input formControlName="lastName" placeholder="Last Name" />
+    <input formControlName="id" placeholder="ID" />
+    <input formControlName="email" type="email" placeholder="Email" />
+    <input formControlName="password" type="password" placeholder="Password" />
+    <button type="submit" [disabled]="loading">Sign Up</button>
+    <div class="toggle-text">
+      Already have an account? <span class="toggle-link" (click)="toggleForm()">Log In</span>
+    </div>
+  </form>
+
+  <div *ngIf="message" class="message">{{ message }}</div>
+</div>
