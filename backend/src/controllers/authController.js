@@ -22,11 +22,13 @@ exports.login = async (req, res) => {
             expiresIn: config.jwtExpiration,
         });
 
-        res.status(200).send({ token });
+        // Send back the token and the user's role
+        res.status(200).send({ token, role: user.role });
     } catch (error) {
         res.status(500).send({ message: 'Internal Server Error', error: error.message });
     }
 };
+
 
 exports.register = async (req, res) => {
     const { firstName, lastName, id, email, password } = req.body;
