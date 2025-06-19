@@ -2,11 +2,13 @@
 const express = require('express');
 const authRoutes = require('./authRoutes'); // Import auth routes
 const userRoutes = require('./userRoutes');
+const adminRoutes = require('./adminRoutes');
 const topicRoutes = require('./topicRoutes');
 const subTopicRoutes = require('./subTopicRoutes');
 const gptRoute = require('./gptRoutes');
 const recipeRoutes = require('./recipeRoutes');
 const promptRoutes = require('./promptRoutes');
+
 
 const router = express.Router();
 
@@ -16,13 +18,16 @@ router.get('/hello', (req, res) => {
 });
 
 // Auth routes
-router.use('/auth', authRoutes); // Use the auth routes under /auth
+router.use('/auth', authRoutes);
 
 // Gpt route
 router.use('/gpt', gptRoute);
 
 // User routes
 router.use('/users', userRoutes);
+
+// Admin routes
+router.use('/admin', adminRoutes);
 
 // Topic routes
 router.use('/topics', topicRoutes);
