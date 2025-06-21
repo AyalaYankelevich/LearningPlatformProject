@@ -9,6 +9,7 @@
     <div class="toggle-text">
       Don't have an account? <span class="toggle-link" (click)="toggleForm()">Sign Up</span>
     </div>
+    <div class="auth-msg" *ngIf="authMsg">{{authMsg}}</div>
   </form>
 
   <form *ngIf="!isLogin" [formGroup]="signupForm" (ngSubmit)="onSignup()" class="pretty-form">
@@ -21,7 +22,8 @@
     <div class="toggle-text">
       Already have an account? <span class="toggle-link" (click)="toggleForm()">Log In</span>
     </div>
+    <div class="auth-msg" *ngIf="authMsg">{{authMsg}}</div>
   </form>
 
-  <div *ngIf="message" class="message">{{ message }}</div>
+ 
 </div>

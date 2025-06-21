@@ -2,7 +2,7 @@ const adminService = require('../services/adminService');
 const authService = require('../services/authService');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const config = require('../config');
+const config = require('../config/config');
 
 exports.createAdmin = async (req, res) => {
     const { firstName, lastName, id, email, password } = req.body;
