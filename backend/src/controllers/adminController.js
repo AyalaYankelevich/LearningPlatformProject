@@ -54,6 +54,15 @@ exports.getAllUsers = async (req, res) => {
     }
 };
 
+exports.getAllPrompts = async (req, res) => {
+    try {
+        const users = await adminService.getAllPrompts();
+        res.status(200).json(users);
+    } catch (error) {
+        res.status(500).json({ message: 'Error retrieving prompts', error });
+    }
+};
+
 exports.getUserPrompts = async (req, res) => {
     const userId = req.params.id;
     try {
@@ -62,6 +71,16 @@ exports.getUserPrompts = async (req, res) => {
     } catch (error) {
         res.status(500).json({ message: 'Error retrieving prompts', error });
     }
+};
+
+exports.getFilteredPrompts = async (req, res) => {
+  try {
+    const { userId, categoryId } = req.query;
+    const prompts = await adminService.getFilteredPromptsService({ userId, categoryId });
+    res.json(prompts);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 };
 
 

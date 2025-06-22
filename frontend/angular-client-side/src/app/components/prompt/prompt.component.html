@@ -1,35 +1,3 @@
-<!-- <div class="prompt-gpt-container">
-  <div class="prompt-header">
-    <span class="line"></span>
-    <div class="topic-info">
-      <div class="topic">
-        {{ topicLoaded ? topic : 'Loading topic...' }}
-      </div>
-      <div class="subtopic">
-        {{ subTopicLoaded ? subTopic : 'Loading sub-topic...' }}
-      </div>
-    </div>
-    <span class="line"></span>
-  </div>
-
-  <textarea
-    [(ngModel)]="userMessage"
-    class="prompt-input"
-    placeholder="Type your message for GPT..."
-    rows="4"
-    [disabled]="!topicLoaded || !subTopicLoaded || loading"
-  ></textarea>
-  <button class="prompt-btn" 
-    (click)="sendPrompt()" 
-    [disabled]="loading || !topicLoaded || !subTopicLoaded">
-    {{ loading ? 'Sending...' : 'Send to GPT' }}
-  </button>
-  <div class="prompt-error" *ngIf="error">{{ error }}</div>
-  <div class="prompt-response" *ngIf="gptResponse">
-    <strong>GPT Response:</strong>
-    <p>{{ gptResponse }}</p>
-  </div>
-</div> -->
 <div class="prompt-gpt-container">
   <div class="prompt-header">
     <span class="line"></span>
@@ -50,13 +18,15 @@
     <span class="line"></span>
   </div>
 
-  <textarea
-    [(ngModel)]="userMessage"
-    class="prompt-input"
-    placeholder="Type your message for GPT..."
-    rows="4"
-    [disabled]="!topicLoaded || !subTopicLoaded || loading"
-  ></textarea>
+<textarea
+  [(ngModel)]="userMessage"
+  class="prompt-input"
+  placeholder="Type your message for GPT..."
+  rows="4"
+  [disabled]="!topicLoaded || !subTopicLoaded || loading"
+  (focus)="clearPromptAndResponse()"
+></textarea>
+
 
   <button class="prompt-btn" 
     (click)="sendPrompt()" 

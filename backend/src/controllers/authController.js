@@ -15,7 +15,7 @@ exports.login = async (req, res) => {
 
         const isMatch = await authService.comparePassword(password, user.password);
         if (!isMatch) {
-            return res.status(401).send({ message: 'Invalid credentials' });
+            return res.status(401).send({ message: 'Incorrect email or password' });
         }
 
         const token = jwt.sign({ id: user.id, email: user.email, role: user.role }, config.jwtSecret, {
@@ -34,7 +34,6 @@ exports.register = async (req, res) => {
     const { firstName, lastName, id, email, password } = req.body;
 
     try {
-
         // Check if the user already exists by id
         const existingUserById = await authService.userExistsById(id);
         if (existingUserById) {

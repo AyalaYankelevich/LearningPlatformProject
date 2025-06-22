@@ -17,4 +17,14 @@ export class HistoryService {
     });
     return this.http.get<any[]>(this.apiUrl, { headers });
   }
+
+  deletePrompt(promptId: string): Observable<any> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    // Use correct REST endpoint for deleting a single prompt
+    // Adjust your apiUrl if necessary (see note below)
+    return this.http.delete(`${this.apiUrl.replace('/id', '')}/${promptId}`, { headers });
+  }
 }

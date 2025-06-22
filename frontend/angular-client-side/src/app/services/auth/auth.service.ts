@@ -9,7 +9,14 @@ import { Observable } from 'rxjs';
 export class AuthService {
   private apiUrl = 'http://localhost:5059/api/auth'; // Adjusted URL to include /api
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
+
+  // getProfile() {
+  //   const token = localStorage.getItem('token');
+  //   return this.http.get<{ firstName: string }>('http://localhost:5059/api/users/me', {
+  //     headers: { Authorization: `Bearer ${token}` }
+  //   });
+  // }
 
   register(firstName: string, lastName: string, id: string, email: string, password: string): Observable<any> {
     const userData = { firstName, lastName, id, email, password };

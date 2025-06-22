@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth/auth.service'; // Assuming you have an AuthService to get user profile
 
 @Component({
   selector: 'app-use-dashboard',
@@ -10,13 +11,24 @@ import { Router } from '@angular/router';
   styleUrls: ['./user-dashboard.component.css']
 })
 export class UserDashboardComponent implements OnInit {
-  firstName = '';
+  userName = '';
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private authService: AuthService) { }
 
   ngOnInit() {
-    this.firstName = localStorage.getItem('firstName') || '';
-  }
+  //   console.log('UserDashboardComponent ngOnInit called');
+  // this.authService.getProfile().subscribe({
+    
+  //   next: user => {
+  //     console.log('User profile response:', user);
+  //     this.userName = user.firstName; // or user.username, user.name, etc.
+
+  //   },
+  //   error: err => {
+  //     this.userName = ''; // or handle error
+  //   }
+  // });
+}
 
   onLearningClick() {
     this.router.navigate(['/topics']); // <-- Navigate to the TopicSelectorComponent

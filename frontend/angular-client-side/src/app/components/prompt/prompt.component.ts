@@ -51,6 +51,12 @@ export class PromptComponent {
   // goBack() {
   //   this.router.navigate(['/topics']);
   // }
+clearPromptAndResponse() {
+  this.userMessage = '';
+  this.gptResponse = '';
+  this.error = '';
+}
+
 
   sendPrompt() {
   if (this.loading) return;

@@ -40,7 +40,7 @@ export class LogInComponent {
     this.authMsg = '';
   }
 
-onLogin() {
+  onLogin() {
     if (this.loginForm.invalid) return;
     this.loading = true;
     const { email, password } = this.loginForm.value;
@@ -53,7 +53,11 @@ onLogin() {
           // Store firstName if you want, but usually you get it from backend
           this.authMsg = 'Login successful! 🎉';
           this.loading = false;
-          this.router.navigate(['/user-dashboard']);
+          if (res.role === 'admin') {
+            this.router.navigate(['/admin-dashboard']);
+          } else {
+            this.router.navigate(['/user-dashboard']);
+          }
         },
         error: err => {
           const msg = err.error?.message || 'Login failed';
@@ -81,10 +85,14 @@ onLogin() {
             localStorage.setItem('token', res.token);
           }
           // Store firstName for greeting
-          localStorage.setItem('firstName', firstName);
+          // localStorage.setItem('firstName', firstName);
           this.authMsg = 'Signup successful! 🎉 Redirecting...';
           this.loading = false;
-          this.router.navigate(['/user-dashboard']);
+          if (res.role === 'admin') {
+            this.router.navigate(['/admin-dashboard']);
+          } else {
+            this.router.navigate(['/user-dashboard']);
+          }
         },
         error: err => {
           this.authMsg = err.error?.message || 'Signup failed';

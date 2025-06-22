@@ -1,0 +1,135 @@
+:root {
+  --apple-green: #a8e063;
+  --black: #181818;
+  --white: #fff;
+  --row-alt: #f5f5f5;
+  --border-radius: 16px;
+  --table-shadow: 0 4px 24px rgba(168,224,99,0.10);
+}
+
+/* Dashboard Layout */
+.admin-dashboard {
+  max-width: 1000px;
+  margin: 40px auto;
+  background: var(--white);
+  border-radius: var(--border-radius);
+  box-shadow: var(--table-shadow);
+  padding: 36px 24px 28px 24px;
+  border: 1px solid var(--apple-green);
+}
+
+/* Button Bar */
+.button-bar {
+  display: flex;
+  gap: 18px;
+  margin-bottom: 32px;
+  justify-content: left;
+}
+
+.button-bar button {
+  padding: 10px 30px;
+  background: var(--white);
+  border: 2px solid var(--apple-green);
+  border-radius: 24px;
+  color: var(--black);
+  font-weight: 600;
+  font-size: 1.04em;
+  cursor: pointer;
+  transition: all 0.18s;
+  outline: none;
+  box-shadow: 0 2px 8px rgba(168,224,99,0.08);
+}
+
+.button-bar button.active,
+.button-bar button:hover {
+  background: var(--apple-green);
+  color: var(--black);
+  border-color: var(--black);
+  transform: translateY(-2px) scale(1.03);
+}
+
+/* Table Styles */
+.user-table, .prompt-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: var(--white);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(168,224,99,0.08);
+  margin-top: 12px;
+}
+
+.user-table th, .user-table td,
+.prompt-table th, .prompt-table td {
+  padding: 14px 16px;
+  text-align: left;
+}
+
+.user-table th, .prompt-table th {
+  background: var(--apple-green);
+  color: var(--black);
+  font-weight: 600;
+  font-size: 1rem;
+  border-bottom: 2px solid var(--black);
+  letter-spacing: 0.5px;
+}
+
+.user-table td, .prompt-table td {
+  color: var(--black);
+  background: var(--white);
+  font-size: 0.96rem;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.user-table tbody tr:nth-child(even) td,
+.prompt-table tbody tr:nth-child(even) td {
+  background: var(--row-alt);
+}
+
+.role-badge {
+  background: var(--apple-green);
+  color: var(--black);
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-weight: 500;
+  font-size: 0.92em;
+  text-transform: capitalize;
+  box-shadow: 0 2px 6px rgba(168,224,99,0.15);
+  transition: background 0.2s;
+}
+.role-badge.admin {
+  background: var(--black);
+  color: var(--white);
+}
+
+.empty-msg, .loading, .error {
+  margin: 32px 0 0 0;
+  color: var(--black);
+  font-size: 1.08rem;
+  text-align: center;
+  font-weight: 500;
+  background: var(--apple-green);
+  padding: 12px 0;
+  border-radius: 8px;
+}
+.error {
+  background: #fee;
+  color: #a00;
+}
+
+@media (max-width: 800px) {
+  .admin-dashboard {
+    padding: 10px;
+  }
+  .button-bar {
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 18px;
+  }
+  .user-table th, .user-table td,
+  .prompt-table th, .prompt-table td {
+    padding: 8px 6px;
+    font-size: 0.92rem;
+  }
+}

@@ -1,9 +1,7 @@
 <div class="dashboard-container">
   <div class="line"></div>
-  <h2 *ngIf="firstName; else generic">welcome {{ firstName }}!</h2>
-  <ng-template #generic>
-    <h2>Welcome to Your Dashboard</h2>
-  </ng-template>
+  <!-- <h2 *ngIf="userName; else generic">welcome {{ userName }}!</h2> -->
+   <h2 >welcome!</h2>
   <div class="button-row">
 <button (click)="onLearningClick()" class="dashboard-btn learning-btn">
   For Learning

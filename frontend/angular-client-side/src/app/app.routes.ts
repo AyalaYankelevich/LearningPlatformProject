@@ -6,6 +6,7 @@ import { UserDashboardComponent } from './components/user-dashboard/user-dashboa
 import { TopicSelectorComponent } from './components/topic-selector/topic-selector.component';
 import { PromptComponent } from './components/prompt/prompt.component';
 import { HistoryComponent } from './components/history/history.component';
+import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -13,7 +14,8 @@ const routes: Routes = [
   { path: 'user-dashboard', component: UserDashboardComponent },
   { path: 'topics', component: TopicSelectorComponent },
   { path: 'prompt/:topicId/:subTopicId', component: PromptComponent },
-  { path: 'history', component: HistoryComponent }
+  { path: 'history', component: HistoryComponent },
+  { path: 'admin-dashboard', component: AdminDashboardComponent }
 ];
 
 @NgModule({
