@@ -1,15 +1,26 @@
-<div *ngIf="loading">Loading history...</div>
-<div *ngIf="error">{{ error }}</div>
-<div *ngIf="!loading && !error">
-  <div *ngFor="let topic of groupedHistory">
-    <h2>Topic: {{ topic.topic }}</h2>
-    <div *ngFor="let sub of topic.subTopics">
-      <h3>&nbsp;&nbsp;Sub-topic: {{ sub.subTopic }}</h3>
-      <ul>
-        <li *ngFor="let p of sub.prompts">
-          &nbsp;&nbsp;&nbsp;&nbsp;- {{ p.prompt }}
-        </li>
-      </ul>
+<div class="history-container">
+  <h2 class="history-title">Your Questions History</h2>
+  <div *ngIf="loading" class="history-loading">Loading...</div>
+  <div *ngIf="error" class="history-error">{{ error }}</div>
+  <div *ngIf="!loading && !error && prompts.length === 0" class="history-empty">
+    No questions found.
+  </div>
+  <div *ngIf="!loading && prompts.length > 0">
+    <div *ngFor="let p of prompts" class="history-item">
+      <div class="history-bar"></div>
+      <div class="history-meta">
+        <span class="history-topic">{{ p.topic }}</span>
+        <span class="history-subtopic">{{ p.subTopic }}</span>
+        <span class="history-date">{{ p.createdAt | date:'medium' }}</span>
+      </div>
+      <div class="history-question">
+        <span class="label">Q:</span>
+        <span>{{ p.prompt }}</span>
+      </div>
+      <div class="history-answer" *ngIf="p.response">
+        <span class="label">A:</span>
+        <span>{{ p.response }}</span>
+      </div>
     </div>
   </div>
 </div>

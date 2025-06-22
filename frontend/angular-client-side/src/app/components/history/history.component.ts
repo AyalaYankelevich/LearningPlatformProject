@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { PromptService } from '../../services/prompt/prompt.service';
+import { HistoryService } from '../../services/history/history.service';
 
 interface Prompt {
   topic: string;
@@ -11,29 +11,24 @@ interface Prompt {
   createdAt: string;
 }
 
-interface GroupedHistory {
-  topic: string;
-  subTopics: { subTopic: string; prompts: Prompt[] }[];
-}
-
 @Component({
   selector: 'app-history',
   templateUrl: './history.component.html',
   standalone: true,
-  imports: [FormsModule, CommonModule],
-  styleUrls: ['./history.component.css']
+  imports: [CommonModule, FormsModule],
+  styleUrls: ['./history.component.css'],
 })
 export class HistoryComponent implements OnInit {
-  groupedHistory: GroupedHistory[] = [];
+  prompts: Prompt[] = [];
   loading = true;
   error = '';
 
-  constructor(private promptService: PromptService) {}
+  constructor(private historyService: HistoryService) {}
 
   ngOnInit() {
-    this.promptService.getUserPrompts().subscribe({
+    this.historyService.getUserPrompts().subscribe({
       next: (prompts: Prompt[]) => {
-        this.groupedHistory = this.groupPrompts(prompts);
+        this.prompts = prompts.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
         this.loading = false;
       },
       error: () => {
@@ -41,25 +36,5 @@ export class HistoryComponent implements OnInit {
         this.loading = false;
       }
     });
-  }
-
-  // Group prompts by topic and subTopic
-  groupPrompts(prompts: Prompt[]): GroupedHistory[] {
-    const topicMap = new Map<string, GroupedHistory>();
-
-    for (const p of prompts) {
-      if (!topicMap.has(p.topic)) {
-        topicMap.set(p.topic, { topic: p.topic, subTopics: [] });
-      }
-      const topicGroup = topicMap.get(p.topic)!;
-
-      let subGroup = topicGroup.subTopics.find(st => st.subTopic === p.subTopic);
-      if (!subGroup) {
-        subGroup = { subTopic: p.subTopic, prompts: [] };
-        topicGroup.subTopics.push(subGroup);
-      }
-      subGroup.prompts.push(p);
-    }
-    return Array.from(topicMap.values());
   }
 }

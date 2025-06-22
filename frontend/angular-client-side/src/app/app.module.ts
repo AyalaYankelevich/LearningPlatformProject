@@ -7,7 +7,8 @@ import { HomeComponent } from './components/home/home.component'; // Import Home
 import { LogInComponent } from './components/logIn/logIn.component'; // Import LogInComponent
 import { UserDashboardComponent } from './components/user-dashboard/user-dashboard.component';
 import { TopicSelectorComponent } from './components/topic-selector/topic-selector.component';
-
+import { HistoryComponent } from './components/history/history.component';
+import { PromptComponent } from './components/prompt/prompt.component'; // Import PromptComponent if needed
 @NgModule({
   declarations: [],
   imports: [
@@ -16,6 +17,8 @@ import { TopicSelectorComponent } from './components/topic-selector/topic-select
     LogInComponent, // Import LogInComponent directly
     UserDashboardComponent,
     TopicSelectorComponent,
+    HistoryComponent,
+    PromptComponent,
     FormsModule, // Import FormsModule for template-driven forms
     AppRoutingModule
     ],

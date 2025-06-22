@@ -12,9 +12,16 @@ exports.getAllPrompts = async () => {
     return await Prompt.find().populate('topicId').populate('sub_topicId'); // Populate if needed
 };
 
-// Get all prompts for a specific user
+// // Get all prompts for a specific user
+// exports.getPromptsByUserId = async (userId) => {
+//     return await Prompt.find({ user_id: userId }); // Fetch all prompts for the user
+// };
+
 exports.getPromptsByUserId = async (userId) => {
-    return await Prompt.find({ user_id: userId }); // Fetch all prompts for the user
+    return await Prompt.find({ user_id: userId })
+        .populate('topicId', 'name')        // populate topicId with the 'name' field
+        .populate('sub_topicId', 'name')    // populate sub_topicId with the 'name' field
+        .lean();
 };
 
 // Update a prompt by ID for the authenticated user

@@ -1,23 +1,46 @@
-const { createPrompt, getPromptsByUserId, updatePrompt, deletePrompt } = require('../services/promptService');
-const { v4: uuidv4 } = require('uuid'); // להתקין עם npm install uuid
-// // Create a new prompt
-// exports.createPromptController = async (req, res) => {
-//     try {
-//         const { topicId, sub_topicId, prompt, response } = req.body;
-//         const promptData = {
-//             user_id: req.user._id, // Ensure user is authenticated
-//             topicId,
-//             sub_topicId,
-//             prompt,
-//             response
-//         };
+const { createPrompt, getPromptsByUserId, updatePrompt, deletePrompt, getAllPrompts } = require('../services/promptService');
 
-//         const newPrompt = await createPrompt(promptData);
-//         res.status(201).json(newPrompt);
-//     } catch (error) {
-//         res.status(500).json({ error: 'Failed to create prompt' });
-//     }
-// };
+const Topic = require('../models/topic');
+const SubTopic = require('../models/subTopic');
+
+async function getTopicMap() {
+  const topics = await Topic.find().lean();
+  const map = {};
+  topics.forEach(t => { map[t.id] = t.title; });
+  return map;
+}
+
+async function getSubTopicMap() {
+  const subtopics = await SubTopic.find().lean();
+  const map = {};
+  subtopics.forEach(st => { map[st.id] = st.title; });
+  return map;
+}
+
+exports.getPromptsByUserIdController = async (req, res) => {
+  try {
+    const prompts = await getPromptsByUserId(req.user.id);
+    const topicMap = await getTopicMap();
+    const subTopicMap = await getSubTopicMap();
+    console.log('topicMap:', topicMap);
+console.log('subTopicMap:', subTopicMap);
+console.log('example prompt:', prompts[0]);
+
+    const promptsWithNames = prompts.map(p => ({
+      topic: topicMap[p.topicId] || p.topicId,
+      subTopic: subTopicMap[p.sub_topicId] || p.sub_topicId,
+      createdAt: p.created_at,
+      prompt: p.prompt,
+      response: p.response
+    }));
+    
+    res.status(200).json(promptsWithNames);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to retrieve prompts' });
+  }
+};
+
+//2
 exports.createPromptController = async (req, res) => {
     try {
         console.log("req.user:", req.user);
@@ -25,8 +48,7 @@ exports.createPromptController = async (req, res) => {
         console.log("Body:", { topicId, sub_topicId, prompt, response });
 
         const promptData = {
-            // id: uuidv4(), // יצירת מזהה ייחודי
-            user_id: req.user.id, // safe navigation for debug
+            user_id: req.user.id,
             topicId,
             sub_topicId,
             prompt,
@@ -41,6 +63,7 @@ exports.createPromptController = async (req, res) => {
         res.status(500).json({ error: 'Failed to create prompt' });
     }
 };
+// 1
 // exports.createPromptController = async (req, res) => {
 //     try {
 //         console.log("req.user:", req.user);
@@ -74,15 +97,36 @@ exports.getAllPromptsController = async (req, res) => {
     }
 };
 
-// Get all prompts for the authenticated user
-exports.getPromptsByUserIdController = async (req, res) => {
-    try {
-        const prompts = await getPromptsByUserId(req.user.id); // Fetch all prompts for the user
-        res.status(200).json(prompts);
-    } catch (error) {
-        res.status(500).json({ error: 'Failed to retrieve prompts' });
-    }
-};
+// // Get all prompts for the authenticated user
+// exports.getPromptsByUserIdController = async (req, res) => {
+//     try {
+//         const prompts = await getPromptsByUserId(req.user.id);
+
+//         // Map populated fields to plain names
+//         const promptsWithNames = prompts.map(p => ({
+//             topic: p.topicId?.name || '',
+//             subTopic: p.sub_topicId?.name || '',
+//             createdAt: p.createdAt,
+//             prompt: p.prompt,
+//             response: p.response
+//         }));
+
+//         res.status(200).json(promptsWithNames);
+//     } catch (error) {
+//         res.status(500).json({ error: 'Failed to retrieve prompts' });
+//     }
+// };
+
+
+// // Get all prompts for the authenticated user
+// exports.getPromptsByUserIdController = async (req, res) => {
+//     try {
+//         const prompts = await getPromptsByUserId(req.user.id); // Fetch all prompts for the user
+//         res.status(200).json(prompts);
+//     } catch (error) {
+//         res.status(500).json({ error: 'Failed to retrieve prompts' });
+//     }
+// };
 
 // Update a prompt by ID for the authenticated user
 exports.updatePromptController = async (req, res) => {

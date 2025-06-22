@@ -23,6 +23,6 @@ export class UserDashboardComponent implements OnInit {
   }
 
   onHistoryClick() {
-    alert('My History clicked!');
+     this.router.navigate(['/history']); // <-- Navigate to the HistoryComponent
   }
 }
