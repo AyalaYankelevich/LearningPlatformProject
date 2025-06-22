@@ -1,0 +1,31 @@
+<div class="topic-selector-container">
+  <ng-container *ngIf="!selectedTopic">
+    <h2 class="title">Choose a Topic</h2>
+    <div *ngIf="loading" class="loader"></div>
+    <div class="topics-list" *ngIf="!loading">
+      <button 
+        class="topic-btn" 
+        *ngFor="let topic of topics" 
+        (click)="selectTopic(topic)">
+        {{ topic.title }}
+      </button>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="selectedTopic">
+    <div class="topic-header">
+      <button class="back-btn" (click)="clearSelection()">&#8592;</button>
+      <h2 class="title">{{ selectedTopic.title }}</h2>
+    </div>
+    <div *ngIf="loading" class="loader"></div>
+    <div class="subtopics-list" *ngIf="!loading">
+      <div *ngIf="subTopics.length === 0" class="no-subtopics">No sub-topics found.</div>
+      <button 
+        class="subtopic-btn" 
+        *ngFor="let sub of subTopics"
+        (click)="onSubTopicClick(sub)">
+        {{ sub.title }}
+      </button>
+    </div>
+  </ng-container>
+</div>

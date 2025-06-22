@@ -1,24 +1,68 @@
 const { createPrompt, getPromptsByUserId, updatePrompt, deletePrompt } = require('../services/promptService');
+const { v4: uuidv4 } = require('uuid'); // להתקין עם npm install uuid
+// // Create a new prompt
+// exports.createPromptController = async (req, res) => {
+//     try {
+//         const { topicId, sub_topicId, prompt, response } = req.body;
+//         const promptData = {
+//             user_id: req.user._id, // Ensure user is authenticated
+//             topicId,
+//             sub_topicId,
+//             prompt,
+//             response
+//         };
 
-// Create a new prompt
+//         const newPrompt = await createPrompt(promptData);
+//         res.status(201).json(newPrompt);
+//     } catch (error) {
+//         res.status(500).json({ error: 'Failed to create prompt' });
+//     }
+// };
 exports.createPromptController = async (req, res) => {
     try {
+        console.log("req.user:", req.user);
         const { topicId, sub_topicId, prompt, response } = req.body;
+        console.log("Body:", { topicId, sub_topicId, prompt, response });
 
         const promptData = {
-            user_id: req.user._id, // Ensure user is authenticated
+            // id: uuidv4(), // יצירת מזהה ייחודי
+            user_id: req.user.id, // safe navigation for debug
             topicId,
             sub_topicId,
             prompt,
             response
         };
+        console.log("Prompt data:", promptData);
 
         const newPrompt = await createPrompt(promptData);
         res.status(201).json(newPrompt);
     } catch (error) {
+        console.error("Failed to create prompt:", error);
         res.status(500).json({ error: 'Failed to create prompt' });
     }
 };
+// exports.createPromptController = async (req, res) => {
+//     try {
+//         console.log("req.user:", req.user);
+//         const { topicId, sub_topicId, prompt, response } = req.body;
+//         console.log("Body:", { topicId, sub_topicId, prompt, response });
+
+//         const promptData = {
+//             user_id: req.user.id,// safe navigation for debug
+//             topicId,
+//             sub_topicId,
+//             prompt,
+//             response
+//         };
+//         console.log("Prompt data:", promptData);
+
+//         const newPrompt = await createPrompt(promptData);
+//         res.status(201).json(newPrompt);
+//     } catch (error) {
+//         console.error("Failed to create prompt:", error);
+//         res.status(500).json({ error: 'Failed to create prompt' });
+//     }
+// };
 
 // // Get all prompts
 exports.getAllPromptsController = async (req, res) => {
@@ -33,7 +77,7 @@ exports.getAllPromptsController = async (req, res) => {
 // Get all prompts for the authenticated user
 exports.getPromptsByUserIdController = async (req, res) => {
     try {
-        const prompts = await getPromptsByUserId(req.user._id); // Fetch all prompts for the user
+        const prompts = await getPromptsByUserId(req.user.id); // Fetch all prompts for the user
         res.status(200).json(prompts);
     } catch (error) {
         res.status(500).json({ error: 'Failed to retrieve prompts' });

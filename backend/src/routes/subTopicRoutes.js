@@ -9,6 +9,8 @@ router.post('/', authenticateToken, subTopicController.createSubTopic);
 // Get all sub-topics
 router.get('/',authenticateToken, subTopicController.getAllSubTopics);
 
+// Get all sub-topics by topicId
+router.get('/topic/:topicId', authenticateToken, subTopicController.getSubTopicsByTopicId);
 
 // Get a sub-topic by ID
 router.get('/:id',authenticateToken, subTopicController.getSubTopicById);

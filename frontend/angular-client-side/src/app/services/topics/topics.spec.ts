@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
-import { PromptService } from './prompt.service';
+import { TopicsService } from './topics.service';
 
-describe('Prompt', () => {
-  let service: PromptService;
+describe('Topics', () => {
+  let service: TopicsService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(PromptService);
+    service = TestBed.inject(TopicsService);
   });
 
   it('should be created', () => {

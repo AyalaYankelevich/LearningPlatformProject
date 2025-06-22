@@ -14,7 +14,7 @@ exports.getAllPrompts = async () => {
 
 // Get all prompts for a specific user
 exports.getPromptsByUserId = async (userId) => {
-    return await Prompt.find({ user_id: userId }).populate('user_id'); // Fetch all prompts for the user
+    return await Prompt.find({ user_id: userId }); // Fetch all prompts for the user
 };
 
 // Update a prompt by ID for the authenticated user

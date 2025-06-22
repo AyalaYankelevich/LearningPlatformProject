@@ -1,0 +1,80 @@
+<!-- <div class="prompt-gpt-container">
+  <div class="prompt-header">
+    <span class="line"></span>
+    <div class="topic-info">
+      <div class="topic">
+        {{ topicLoaded ? topic : 'Loading topic...' }}
+      </div>
+      <div class="subtopic">
+        {{ subTopicLoaded ? subTopic : 'Loading sub-topic...' }}
+      </div>
+    </div>
+    <span class="line"></span>
+  </div>
+
+  <textarea
+    [(ngModel)]="userMessage"
+    class="prompt-input"
+    placeholder="Type your message for GPT..."
+    rows="4"
+    [disabled]="!topicLoaded || !subTopicLoaded || loading"
+  ></textarea>
+  <button class="prompt-btn" 
+    (click)="sendPrompt()" 
+    [disabled]="loading || !topicLoaded || !subTopicLoaded">
+    {{ loading ? 'Sending...' : 'Send to GPT' }}
+  </button>
+  <div class="prompt-error" *ngIf="error">{{ error }}</div>
+  <div class="prompt-response" *ngIf="gptResponse">
+    <strong>GPT Response:</strong>
+    <p>{{ gptResponse }}</p>
+  </div>
+</div> -->
+<div class="prompt-gpt-container">
+  <div class="prompt-header">
+    <span class="line"></span>
+    <div class="topic-info">
+      <div class="topic">
+        <ng-container *ngIf="topicLoaded; else topicLoading">{{ topic }}</ng-container>
+        <ng-template #topicLoading>
+          <span class="skeleton skeleton-text" style="width: 80px"></span>
+        </ng-template>
+      </div>
+      <div class="subtopic">
+        <ng-container *ngIf="subTopicLoaded; else subTopicLoading">{{ subTopic }}</ng-container>
+        <ng-template #subTopicLoading>
+          <span class="skeleton skeleton-text" style="width: 100px"></span>
+        </ng-template>
+      </div>
+    </div>
+    <span class="line"></span>
+  </div>
+
+  <textarea
+    [(ngModel)]="userMessage"
+    class="prompt-input"
+    placeholder="Type your message for GPT..."
+    rows="4"
+    [disabled]="!topicLoaded || !subTopicLoaded || loading"
+  ></textarea>
+
+  <button class="prompt-btn" 
+    (click)="sendPrompt()" 
+    [disabled]="!topicLoaded || !subTopicLoaded || !userMessage.trim()">
+    <ng-container *ngIf="loading; else sendText">
+      <svg class="spinner" viewBox="0 0 50 50">
+        <circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="6"/>
+      </svg>
+      Sending...
+    </ng-container>
+    <ng-template #sendText>
+      Send to GPT
+    </ng-template>
+  </button>
+
+  <!-- ADD THIS BLOCK BELOW THE BUTTON -->
+  <div class="prompt-response" *ngIf="gptResponse">
+    <strong>GPT Response:</strong>
+    <p>{{ gptResponse }}</p>
+  </div>
+</div>

@@ -48,6 +48,24 @@ exports.getAllSubTopics = async (req, res) => {
     }
 };
 
+// Get all sub-topics by topicId
+exports.getSubTopicsByTopicId = async (req, res) => {
+    const topicId = req.params.topicId;
+    try {
+        const subTopics = await subTopicService.getSubTopicsByTopicId(topicId);
+        const response = subTopics.map(subTopic => ({
+            id: subTopic.id,
+            title: subTopic.title,
+            topicId: subTopic.topicId,
+            created_at: subTopic.created_at,
+        }));
+        res.status(200).send(response);
+    } catch (error) {
+        res.status(500).send(error);
+    }
+};
+
+
 // Get a sub-topic by ID
 exports.getSubTopicById = async (req, res) => {
     const subTopicId = req.params.id;
@@ -84,7 +102,7 @@ exports.updateSubTopic = async (req, res) => {
         };
         res.status(200).send(response);
     } catch (error) {
-        res.status(400).send(error);
+        res.status(400).send({ message: 'Bad Request', error: error.message });
     }
 };
 
