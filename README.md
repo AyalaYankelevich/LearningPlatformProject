@@ -32,17 +32,18 @@ Copy .env.example to .env in both /backend and /frontend (if needed).
 Fill in secrets and connection details.
 
 **3. Install dependencies:**
--Backend:
 
-cd backend
+- Backend:
 
-npm install
+  cd backend
 
--Frontend:
+  npm install
 
-cd frontend
+- Frontend:
 
-npm install
+  cd frontend
+
+  npm install
 
 **4. Start MongoDB via Docker Compose:**
 
@@ -52,14 +53,15 @@ docker-compose up -d
 **5. Running Locally:**
 - Backend (Node.js)
 
-cd backend
+  cd backend
 
-npm run dev
+  npm run dev
 - Frontend (Angular)
 
-cd frontend
+  cd frontend
 
-ng serve
+  ng serve
 - Database (MongoDB with Docker Compose)
+- 
 The default setup uses Docker Compose to run MongoDB on localhost:27017.
 Connection string is managed via .env.
