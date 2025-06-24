@@ -17,7 +17,7 @@ A full-stack learning platform with AI integration, user authentication (token-b
 - Users and admins authenticate via JWT tokens.
 - AI integration is abstracted to allow easy swapping of real GPT API.
 - The project is public with clear commit messages.
-- Codebase follows best practices: linted, commented, modular.
+- Codebase follows best practices: commented, modular.
 
 ## Setup Instructions:
 **1. Clone the repository:**
@@ -26,12 +26,12 @@ git clone https://github.com/AyalaYankelevich/LearningPlatformProject.git
 
 cd LearningPlatformProject
 
-**2.** Copy and update environment variables:
+**2. Copy and update environment variables:**
 
 Copy .env.example to .env in both /backend and /frontend (if needed).
 Fill in secrets and connection details.
 
-**3.** Install dependencies:
+**3. Install dependencies:**
 - Backend:
 cd backend
 
@@ -42,10 +42,10 @@ cd frontend
 
 npm install
 
-**4.** Start MongoDB via Docker Compose:
+**4. Start MongoDB via Docker Compose:**
 docker-compose up -d   (Ensure Docker is installed and running.)
 
-**5.** Running Locally:
+**5. Running Locally:**
 - Backend (Node.js)
 
 cd backend
