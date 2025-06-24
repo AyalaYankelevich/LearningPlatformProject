@@ -27,6 +27,7 @@ git clone https://github.com/AyalaYankelevich/LearningPlatformProject.git
 cd LearningPlatformProject
 
 **2.** Copy and update environment variables:
+
 Copy .env.example to .env in both /backend and /frontend (if needed).
 Fill in secrets and connection details.
 
@@ -44,9 +45,11 @@ docker-compose up -d   (Ensure Docker is installed and running.)
 
 **5.** Running Locally:
 - Backend (Node.js)
+
 cd backend
 npm run dev
 - Frontend (Angular)
+
 cd frontend
 ng serve
 - Database (MongoDB with Docker Compose)
