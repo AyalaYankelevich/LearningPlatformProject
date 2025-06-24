@@ -64,4 +64,5 @@ docker-compose up -d     (Ensure Docker is installed and running.)
 - Database (MongoDB with Docker Compose)
 
   The default setup uses Docker Compose to run MongoDB on localhost:27017.
-Connection string is managed via .env.
+  
+  Connection string is managed via .env.
