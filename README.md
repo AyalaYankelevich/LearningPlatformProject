@@ -29,6 +29,7 @@ cd LearningPlatformProject
 **2. Copy and update environment variables:**
 
 Copy .env.example to .env in both /backend and /frontend (if needed).
+
 Fill in secrets and connection details.
 
 **3. Install dependencies:**
@@ -47,8 +48,7 @@ Fill in secrets and connection details.
 
 **4. Start MongoDB via Docker Compose:**
 
-docker-compose up -d   
-(Ensure Docker is installed and running.)
+docker-compose up -d     (Ensure Docker is installed and running.)
 
 **5. Running Locally:**
 - Backend (Node.js)
@@ -62,6 +62,6 @@ docker-compose up -d
 
   ng serve
 - Database (MongoDB with Docker Compose)
-- 
+
 The default setup uses Docker Compose to run MongoDB on localhost:27017.
 Connection string is managed via .env.
