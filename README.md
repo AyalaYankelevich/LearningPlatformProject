@@ -22,6 +22,7 @@ Codebase follows best practices: linted, commented, modular.
 ## Setup Instructions:
 **1.** Clone the repository:
 git clone https://github.com/AyalaYankelevich/LearningPlatformProject.git
+
 cd LearningPlatformProject
 
 **2.** Copy and update environment variables:
@@ -36,15 +37,17 @@ npm install
 Frontend:
 cd frontend
 npm install
+
 **4.** Start MongoDB via Docker Compose:
 docker-compose up -d   (Ensure Docker is installed and running.)
+
 **5.** Running Locally:
-Backend (Node.js)
+- Backend (Node.js)
 cd backend
 npm run dev
-Frontend (Angular)
+- Frontend (Angular)
 cd frontend
 ng serve
-Database (MongoDB with Docker Compose)
+- Database (MongoDB with Docker Compose)
 The default setup uses Docker Compose to run MongoDB on localhost:27017.
 Connection string is managed via .env.
