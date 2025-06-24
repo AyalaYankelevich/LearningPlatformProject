@@ -26,8 +26,7 @@ cd LearningPlatformProject
 2.Copy and update environment variables:
 Copy .env.example to .env in both /backend and /frontend (if needed).
 Fill in secrets and connection details.
-### 3.
-Install dependencies:
+### 3. Install dependencies:
 Backend:
 cd backend
 npm install
