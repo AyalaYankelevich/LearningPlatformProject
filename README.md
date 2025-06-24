@@ -1,4 +1,4 @@
-# LearningPlatformProject
+# Learning Platform Project
 A full-stack learning platform with AI integration, user authentication (token-based), and clean RESTful API structure.
 ## Technologies Used:
 - Backend: Node.js (Express.js)
@@ -20,7 +20,7 @@ A full-stack learning platform with AI integration, user authentication (token-b
 - Codebase follows best practices: linted, commented, modular.
 
 ## Setup Instructions:
-**1.** Clone the repository:
+**1. Clone the repository:**
 
 git clone https://github.com/AyalaYankelevich/LearningPlatformProject.git
 
@@ -34,10 +34,12 @@ Fill in secrets and connection details.
 **3.** Install dependencies:
 - Backend:
 cd backend
+
 npm install
 
 - Frontend:
 cd frontend
+
 npm install
 
 **4.** Start MongoDB via Docker Compose:
