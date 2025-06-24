@@ -20,13 +20,13 @@ The project is public with clear commit messages.
 Codebase follows best practices: linted, commented, modular.
 
 ## Setup Instructions:
-1.Clone the repository:
+**bold** 1.Clone the repository:
 git clone https://github.com/AyalaYankelevich/LearningPlatformProject.git
 cd LearningPlatformProject
-2.Copy and update environment variables:
+**bold** 2.Copy and update environment variables:
 Copy .env.example to .env in both /backend and /frontend (if needed).
 Fill in secrets and connection details.
-### 3. Install dependencies:
+**bold** 3. Install dependencies:
 Backend:
 cd backend
 npm install
@@ -34,9 +34,9 @@ npm install
 Frontend:
 cd frontend
 npm install
-4.Start MongoDB via Docker Compose:
+**bold** 4.Start MongoDB via Docker Compose:
 docker-compose up -d   (Ensure Docker is installed and running.)
-5.Running Locally:
+**bold** 5.Running Locally:
 Backend (Node.js)
 cd backend
 npm run dev
