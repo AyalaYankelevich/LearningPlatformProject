@@ -7,7 +7,6 @@ exports.createTopic = async (req, res) => {
         if (existingTopic) {
             return res.status(400).send({ message: 'Topic with this id already exists' });
         }
-        // Proceed to create the topic since it doesn't exist
         const topic = await topicService.createTopic(req.body);
         const response = {
             id: topic.id,
@@ -42,7 +41,7 @@ exports.getAllTopics = async (req, res) => {
 
 // Get a topic by ID
 exports.getTopicById = async (req, res) => {
-    const topicId = req.params.id; // Assuming the ID is passed as a URL parameter
+    const topicId = req.params.id;
     try {
         const topic = await topicService.getTopicById(topicId);
         if (!topic) {
@@ -62,7 +61,7 @@ exports.getTopicById = async (req, res) => {
 
 // Update a topic by ID
 exports.updateTopic = async (req, res) => {
-    const topicId = req.params.id; // Assuming the ID is passed as a URL parameter
+    const topicId = req.params.id;
     try {
         const topic = await topicService.updateTopicById(topicId, req.body);
         if (!topic) {
@@ -83,7 +82,7 @@ exports.updateTopic = async (req, res) => {
 
 // Delete a topic by custom ID
 exports.deleteTopic = async (req, res) => {
-    const topicId = req.params.id; // Assuming the ID is passed as a URL parameter
+    const topicId = req.params.id;
     try {
         const topic = await topicService.deleteTopicById(topicId);
         if (!topic) {

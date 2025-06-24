@@ -5,7 +5,6 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const config = require('../config/config');
 
-console.log('Admin controller loaded');
 
 exports.createAdmin = async (req, res) => {
     const { firstName, lastName, id, email, password } = req.body;
@@ -36,7 +35,7 @@ exports.createAdmin = async (req, res) => {
             role: 'admin'
         });
 
-        // Optionally, generate a JWT token for the new admin
+        // Generate a JWT token for the new admin
         const token = jwt.sign({ id: newAdmin.id, email: newAdmin.email, role: newAdmin.role }, config.jwtSecret, {
             expiresIn: config.jwtExpiration,
         });
@@ -81,15 +80,7 @@ exports.getPromptsByUser = async (req, res) => {
     }
 };
 
-exports.getFilteredPrompts = async (req, res) => {
-  try {
-    const { userId, categoryId } = req.query;
-    const prompts = await adminService.getFilteredPromptsService({ userId, categoryId });
-    res.json(prompts);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-};
+
 
 
 

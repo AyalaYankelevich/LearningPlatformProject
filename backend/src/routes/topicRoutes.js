@@ -1,6 +1,6 @@
 const express = require('express');
 const topicController = require('../controllers/topicController');
-const authenticateToken = require('../middleware/authMiddleware'); // Import the middleware
+const authenticateToken = require('../middleware/authMiddleware');
 const router = express.Router();
 
 // Create a new topic

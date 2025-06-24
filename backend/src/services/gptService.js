@@ -1,7 +1,6 @@
 const dotenv = require('dotenv');
 const OpenAI = require('openai');
 
-// Load environment variables from .env file
 dotenv.config();
 
 const openai = new OpenAI({
@@ -11,10 +10,10 @@ const openai = new OpenAI({
 const generateCompletion = async (userMessage, topic, subTopic) => {
   try {
     const completion = await openai.chat.completions.create({
-      model: "gpt-4o-mini",  // Ensure this is a valid model name
+      model: "gpt-4o-mini",
       store: true,
       messages: [
-        { role: "system", content: `Topic: ${topic}, Sub-topic: ${subTopic}` }, // Add topic and sub-topic as context
+        { role: "system", content: `Topic: ${topic}, Sub-topic: ${subTopic}` },
         { role: "user", content: userMessage },
       ],
     });
@@ -25,6 +24,6 @@ const generateCompletion = async (userMessage, topic, subTopic) => {
   }
 };
 
-// Export the function
+
 module.exports = { generateCompletion };
 

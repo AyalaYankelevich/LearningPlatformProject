@@ -3,8 +3,11 @@ const { register, login } = require('../controllers/authController');
 
 const router = express.Router();
 
-router.post('/register', register); // No authentication needed for registration
-router.post('/login', login); // No authentication needed for login
+// register to the system
+router.post('/register', register);
+
+// login to the system
+router.post('/login', login);
 
 module.exports = router;
 

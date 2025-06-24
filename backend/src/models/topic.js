@@ -11,7 +11,7 @@ const topicSchema = new mongoose.Schema({
 topicSchema.pre('findOneAndUpdate', function(next) {
     const update = this.getUpdate();
     if (update.id) {
-        delete update.id; // Remove id from update
+        delete update.id;
     }
     next();
 });

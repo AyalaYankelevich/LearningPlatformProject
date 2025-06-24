@@ -5,7 +5,7 @@ const Topic = require('../models/topic');
 exports.createSubTopic = async (req, res) => {
 
     try {
-        const subTopicData = req.body; // Define subTopicData
+        const subTopicData = req.body;
         const existingSubTopic = await subTopicService.subTopicExists(subTopicData.id);
         if (existingSubTopic) {
             return res.status(400).send({ message: 'Sub-topic already exists' });
@@ -16,7 +16,6 @@ exports.createSubTopic = async (req, res) => {
             return res.status(400).send({ message: 'Topic with this id does not exist' });
         }
 
-        // Create sub-topic with valid topicId
         const subTopic = await subTopicService.createSubTopic(subTopicData);
 
         const response = {
@@ -27,7 +26,7 @@ exports.createSubTopic = async (req, res) => {
         };
         res.status(201).send(response);
     } catch (error) {
-        console.error(error); // Log the error for debugging
+        console.error(error);
         res.status(500).send({ message: 'Internal Server Error', error: error.message });
     }
 };

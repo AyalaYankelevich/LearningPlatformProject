@@ -11,8 +11,8 @@ const authenticateJWT = require('./middleware/authMiddleware');
 dotenv.config();
 
 const app = express();
-app.use(cors()); // Use CORS middleware
-app.use(express.json()); // Middleware to parse JSON bodies
+app.use(cors());
+app.use(express.json());
 
 connectToDatabase();
 
@@ -21,7 +21,7 @@ app.use('/api/protected', authenticateJWT, (req, res) => {
     res.send('This is a protected route');
 });
 
-app.use('/api', routes); // Use the routes under the /api prefix
+app.use('/api', routes);
 
 const PORT = process.env.PORT || 5059;
 app.listen(PORT, () => {

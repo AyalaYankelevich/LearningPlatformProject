@@ -2,16 +2,16 @@ const jwt = require('jsonwebtoken');
 const config = require('../config/config');
 
 const authenticateToken = (req, res, next) => {
-    const token = req.headers['authorization']?.split(' ')[1]; // Assuming Bearer token
+    const token = req.headers['authorization']?.split(' ')[1];
     if (!token) {
-        return res.sendStatus(401); // Unauthorized
+        return res.sendStatus(401);
     }
 
     jwt.verify(token, config.jwtSecret, (err, user) => {
         if (err) {
-            return res.sendStatus(403); // Forbidden
+            return res.sendStatus(403);
         }
-        req.user = user; // Save user info for use in other routes
+        req.user = user;
         next();
     });
 };

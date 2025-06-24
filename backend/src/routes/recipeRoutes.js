@@ -1,7 +1,6 @@
-// routes/recipeRoutes.js
 const express = require('express');
 const router = express.Router();
-const authenticateToken = require('../middleware/authMiddleware'); // Import the middleware
+const authenticateToken = require('../middleware/authMiddleware');
 const recipeController = require('../controllers/recipeController');
 
 // Create a new recipe

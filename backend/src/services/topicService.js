@@ -24,5 +24,3 @@ exports.updateTopicById = async (id, updateData) => {
 exports.deleteTopicById = async (topicId) => {
     return await Topic.findOneAndDelete({ id: topicId });
 };
-
-    // return await Topic.findByIdAndUpdate(topicId, updateData, { new: true, runValidators: true });
