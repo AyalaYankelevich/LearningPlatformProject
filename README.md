@@ -32,13 +32,13 @@ Copy .env.example to .env in both /backend and /frontend (if needed).
 Fill in secrets and connection details.
 
 **3. Install dependencies:**
-Backend:
+-Backend:
 
 cd backend
 
 npm install
 
-Frontend:
+-Frontend:
 
 cd frontend
 
