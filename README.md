@@ -36,7 +36,6 @@ cd frontend
 npm install
 4.Start MongoDB via Docker Compose:
 docker-compose up -d   (Ensure Docker is installed and running.)
-
 5.Running Locally:
 Backend (Node.js)
 cd backend
