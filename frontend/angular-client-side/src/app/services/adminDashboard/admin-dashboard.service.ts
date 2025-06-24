@@ -15,7 +15,14 @@ export class AdminService {
     });
   }
 
-  // Get all users for dropdown
+  // Add new admin
+  createAdmin(adminData: { firstName: string, lastName: string, id: string, email: string, password: string }): Observable<any> {
+    return this.http.post<any>(this.baseUrl, adminData, {
+      headers: this.getAuthHeaders(),
+    });
+  }
+
+
   getAllUsers(): Observable<any[]> {
     return this.http.get<any[]>(`${this.baseUrl}/users`, {
       headers: this.getAuthHeaders(),
@@ -40,10 +47,11 @@ export class AdminService {
   //   });
   // }
 
-  // Add new admin
-  createAdmin(adminData: { firstName: string, lastName: string, id: string, email: string, password: string }): Observable<any> {
-    return this.http.post<any>(this.baseUrl, adminData, {
-      headers: this.getAuthHeaders(),
-    });
-  }
+
+getUserPrompts(userId: string): Observable<any[]> {
+  return this.http.get<any[]>(`${this.baseUrl}/userPrompts/${userId}`, {
+    headers: this.getAuthHeaders()
+  });
+}
+  
 }

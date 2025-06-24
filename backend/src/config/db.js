@@ -10,5 +10,4 @@ async function connectToDatabase() {
     }
 }
 
-// Export the connection function
 module.exports = connectToDatabase;

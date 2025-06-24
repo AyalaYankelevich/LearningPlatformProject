@@ -1,80 +1,139 @@
 // const Prompt = require('../models/prompt');
+// const Topic = require('../models/topic');
+// const SubTopic = require('../models/subTopic');
 
 // // Create a new prompt
 // exports.createPrompt = async (promptData) => {
 //     const newPrompt = new Prompt(promptData);
-//     await newPrompt.save(); // Save to database
+//     await newPrompt.save();
 //     return newPrompt;
 // };
 
 // // Get all prompts
 // exports.getAllPrompts = async () => {
-//     return await Prompt.find().populate('topicId').populate('sub_topicId'); // Populate if needed
+//     // No .populate() because topicId/sub_topicId are strings, not references
+//     return await Prompt.find().lean();
 // };
 
-
+// // Get prompts by user ID
 // exports.getPromptsByUserId = async (userId) => {
-//     return await Prompt.find({ user_id: userId })
-//         .populate('topicId', 'name')        // populate topicId with the 'name' field
-//         .populate('sub_topicId', 'name')    // populate sub_topicId with the 'name' field
-//         .lean();
+//     return await Prompt.find({ user_id: userId }).lean();
 // };
 
 // // Update a prompt by ID for the authenticated user
 // exports.updatePrompt = async (id, promptData, userId) => {
 //     const existingPrompt = await Prompt.findOne({ _id: id, user_id: userId });
-    
 //     if (!existingPrompt) {
 //         throw new Error('Prompt not found or unauthorized');
 //     }
-
 //     return await Prompt.findByIdAndUpdate(id, promptData, { new: true });
 // };
 
 // // Delete a prompt by ID for the authenticated user
 // exports.deletePrompt = async (id, userId) => {
 //     const existingPrompt = await Prompt.findOne({ _id: id, user_id: userId });
-    
 //     if (!existingPrompt) {
 //         throw new Error('Prompt not found or unauthorized');
 //     }
-
 //     await Prompt.findByIdAndDelete(id);
 // };
+
+// async function getTopicMap() {
+//     const topics = await Topic.find().lean();
+//     const map = {};
+//     topics.forEach(t => { map[t.id] = t.title; });
+//     return map;
+// }
+
+// async function getSubTopicMap() {
+//     const subtopics = await SubTopic.find().lean();
+//     const map = {};
+//     subtopics.forEach(st => { map[st.id] = st.title; });
+//     return map;
+// }
+
+// module.exports = {
+//     getTopicMap,
+//     getSubTopicMap,
+// };
+// services/promptService.js
+
 const Prompt = require('../models/prompt');
+const Topic = require('../models/topic');
+const SubTopic = require('../models/subTopic');
 
 // Create a new prompt
-exports.createPrompt = async (promptData) => {
+async function createPrompt(promptData) {
     const newPrompt = new Prompt(promptData);
     await newPrompt.save();
     return newPrompt;
-};
+}
 
 // Get all prompts
-exports.getAllPrompts = async () => {
-    // No .populate() because topicId/sub_topicId are strings, not references
+async function getAllPrompts() {
     return await Prompt.find().lean();
-};
+}
 
 // Get prompts by user ID
-exports.getPromptsByUserId = async (userId) => {
+async function getPromptsByUserId(userId) {
     return await Prompt.find({ user_id: userId }).lean();
-};
+}
 
 // Update a prompt by ID for the authenticated user
-exports.updatePrompt = async (id, promptData, userId) => {
+async function updatePrompt(id, promptData, userId) {
     const existingPrompt = await Prompt.findOne({ _id: id, user_id: userId });
     if (!existingPrompt) {
         throw new Error('Prompt not found or unauthorized');
     }
     return await Prompt.findByIdAndUpdate(id, promptData, { new: true });
-};
+}
 
 // Delete a prompt by ID for the authenticated user
-exports.deletePrompt = async (id, userId) => {
+async function deletePrompt(id, userId) {
     const existingPrompt = await Prompt.findOne({ _id: id, user_id: userId });
     if (!existingPrompt) {
         throw new Error('Prompt not found or unauthorized');
     }
     await Prompt.findByIdAndDelete(id);
+}
+
+// Get a map of topicId -> topic title
+async function getTopicMap() {
+    const topics = await Topic.find().lean();
+    const map = {};
+    topics.forEach(t => { map[t.id] = t.title; });
+    return map;
+}
+
+// Get a map of subTopicId -> subtopic title
+async function getSubTopicMap() {
+    const subtopics = await SubTopic.find().lean();
+    const map = {};
+    subtopics.forEach(st => { map[st.id] = st.title; });
+    return map;
+}
+
+// Get prompts (with topic/subtopic names) by user ID
+async function getPromptsWithNamesByUserId(userId) {
+    const prompts = await getPromptsByUserId(userId);
+    const topicMap = await getTopicMap();
+    const subTopicMap = await getSubTopicMap();
+    return prompts.map(p => ({
+        topic: topicMap[p.topicId] || p.topicId,
+        subTopic: subTopicMap[p.sub_topicId] || p.sub_topicId,
+        createdAt: p.created_at,
+        prompt: p.prompt,
+        response: p.response
+    }));
+}
+
+module.exports = {
+    createPrompt,
+    getAllPrompts,
+    getPromptsByUserId,
+    updatePrompt,
+    deletePrompt,
+    getTopicMap,
+    getSubTopicMap,
+    getPromptsWithNamesByUserId
 };

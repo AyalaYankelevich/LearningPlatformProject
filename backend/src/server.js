@@ -1,11 +1,11 @@
 const express = require('express');
-const mongoose = require('mongoose'); // Import mongoose
-const cors = require('cors'); // Import CORS
+const mongoose = require('mongoose');
+const cors = require('cors');
 const routes = require('./routes/index');
 const connectToDatabase = require('./config/db');
 const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
-const authenticateJWT = require('./middleware/authMiddleware'); // נתיב נכון
+const authenticateJWT = require('./middleware/authMiddleware');
 
 
 dotenv.config();
@@ -13,7 +13,6 @@ dotenv.config();
 const app = express();
 app.use(cors()); // Use CORS middleware
 app.use(express.json()); // Middleware to parse JSON bodies
-// app.use(bodyParser.json()); // Middleware to parse JSON bodies
 
 connectToDatabase();
 

@@ -1,8 +1,11 @@
 const adminService = require('../services/adminService');
 const authService = require('../services/authService');
+const { getPromptsWithNamesByUserId } = require('../services/promptService');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const config = require('../config/config');
+
+console.log('Admin controller loaded');
 
 exports.createAdmin = async (req, res) => {
     const { firstName, lastName, id, email, password } = req.body;
@@ -63,13 +66,18 @@ exports.getAllPrompts = async (req, res) => {
     }
 };
 
-exports.getUserPrompts = async (req, res) => {
-    const userId = req.params.id;
+
+exports.getPromptsByUser = async (req, res) => {
     try {
-        const prompts = await adminService.getUserPrompts(userId);
-        res.status(200).json(prompts);
+        const userId = req.params.id
+        console.log('getPromptsByUser called with id:', req.params.id);
+        if (!userId) {
+            return res.status(400).json({ error: 'User ID is required' });
+        }
+        const promptsWithNames = await getPromptsWithNamesByUserId(userId);
+        res.status(200).json(promptsWithNames);
     } catch (error) {
-        res.status(500).json({ message: 'Error retrieving prompts', error });
+        res.status(500).json({ error: 'Failed to retrieve user prompts' });
     }
 };
 

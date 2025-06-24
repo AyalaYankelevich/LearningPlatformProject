@@ -38,17 +38,4 @@ export class HistoryComponent implements OnInit {
     });
   }
 
-
-  // deletePrompt(promptId: string) {
-  //   if (!confirm('Are you sure you want to delete this prompt?')) return;
-  //   this.historyService.deletePrompt(promptId).subscribe({
-  //     next: () => {
-  //       // Remove from UI
-  //       this.prompts = this.prompts.filter(p => p.id !== promptId);
-  //     },
-  //     error: () => {
-  //       alert('Could not delete prompt.');
-  //     }
-  //   });
-  // }
 }

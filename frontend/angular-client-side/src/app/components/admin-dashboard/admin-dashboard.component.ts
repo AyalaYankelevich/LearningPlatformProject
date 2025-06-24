@@ -2,6 +2,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AdminService } from '../../services/adminDashboard/admin-dashboard.service';
 
 @Component({
@@ -24,7 +25,9 @@ export class AdminDashboardComponent implements OnInit {
   createAdminSuccess = '';
   createAdminError = '';
 
-  constructor(private adminService: AdminService, private fb: FormBuilder) {}
+  activeUserId: string | null = null;
+
+  constructor(private adminService: AdminService,private router: Router, private fb: FormBuilder) {}
 
   ngOnInit() {
     this.signupForm = this.fb.group({
@@ -90,4 +93,15 @@ export class AdminDashboardComponent implements OnInit {
       }
     });
   }
+
+  showUserPrompts(userId: string) {
+  this.activeUserId = userId;
+  this.view = 'prompts';
+  this.loading = true;
+  this.error = '';
+  this.adminService.getUserPrompts(userId).subscribe({
+    next: prompts => { this.prompts = prompts; this.loading = false; },
+    error: err => { this.error = 'Failed to load user prompts.'; this.loading = false; }
+  });
+}
 }

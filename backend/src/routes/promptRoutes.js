@@ -19,3 +19,5 @@ router.put('/:id', authenticateToken, promptController.updatePromptController);
 router.delete('/:id', authenticateToken, promptController.deletePromptController);
 
 module.exports = router;
+
+
