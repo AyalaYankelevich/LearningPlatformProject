@@ -1,4 +1,4 @@
-# Learning Platform Project
+# Healthy Food Learning Platform Project
 A full-stack learning platform with AI integration, user authentication (token-based), and clean RESTful API structure.
 ## Technologies Used:
 - Backend: Node.js (Express.js)
