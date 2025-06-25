@@ -1,0 +1,117 @@
+<div class="admin-dashboard">
+  <div class="button-bar">
+    <button (click)="showUsers()" [class.active]="view==='users'">Show Users</button>
+    <button (click)="showCreateAdmin()" [class.active]="view==='add-admin'">Add Admin</button>
+    <button (click)="hideAll()" *ngIf="view!=='none'">Hide</button>
+  </div>
+
+  <div *ngIf="loading" class="loading">Loading...</div>
+  <div *ngIf="error" class="error">{{ error }}</div>
+
+  <!-- Users Table -->
+  <div *ngIf="view === 'users'">
+    <h2>Users</h2>
+    <table class="user-table" *ngIf="users.length > 0">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Email</th>
+          <th>Role</th>
+          <th>Created At</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users">
+          <td>{{ user.id }}</td>
+          <td>{{ user.firstName }}</td>
+          <td>{{ user.lastName }}</td>
+          <td>{{ user.email }}</td>
+          <td>
+            <span class="role-badge" [class.admin]="user.role==='admin'">{{ user.role }}</span>
+          </td>
+          <td>{{ user.createdAt | date:'short' }}</td>
+          <td>
+            <button (click)="showUserPrompts(user.id)" [class.active]="activeUserId === user.id">
+              Show My Prompts
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div *ngIf="users.length === 0" class="empty-msg">No users found.</div>
+  </div>
+
+  <!-- Prompts Table -->
+  <div *ngIf="view === 'prompts'">
+    <h2>User Prompts</h2>
+    <table class="prompt-table" *ngIf="prompts.length > 0">
+      <thead>
+        <tr>
+          <th>Question</th>
+          <th>Response</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let prompt of prompts">
+          <td>{{ prompt.prompt }}</td>
+          <td>{{ prompt.response }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <div *ngIf="prompts.length === 0" class="empty-msg">No prompts found.</div>
+  </div>
+</div>
+
+
+<div *ngIf="view === 'add-admin'" class="add-admin-form">
+  <form [formGroup]="signupForm" (ngSubmit)="submitCreateAdmin()" class="pretty-form" autocomplete="off">
+    <div class="form-field">
+      <label for="firstName">First Name</label>
+      <input id="firstName" formControlName="firstName" placeholder="First Name" autocomplete="off" />
+      <div class="note" *ngIf="signupForm.get('firstName')?.touched && signupForm.get('firstName')?.invalid">
+        <span *ngIf="signupForm.get('firstName')?.errors?.['required']">First name is required.</span>
+      </div>
+    </div>
+
+    <div class="form-field">
+      <label for="lastName">Last Name</label>
+      <input id="lastName" formControlName="lastName" placeholder="Last Name" autocomplete="off" />
+      <div class="note" *ngIf="signupForm.get('lastName')?.touched && signupForm.get('lastName')?.invalid">
+        <span *ngIf="signupForm.get('lastName')?.errors?.['required']">Last name is required.</span>
+      </div>
+    </div>
+
+    <div class="form-field">
+      <label for="id">ID</label>
+      <input id="id" formControlName="id" placeholder="ID" autocomplete="off" />
+      <div class="note" *ngIf="signupForm.get('id')?.touched && signupForm.get('id')?.invalid">
+        <span *ngIf="signupForm.get('id')?.errors?.['required']">ID is required.</span>
+      </div>
+    </div>
+
+    <div class="form-field">
+      <label for="email">Email</label>
+      <input id="email" formControlName="email" type="email" placeholder="Email" autocomplete="off" />
+      <div class="note" *ngIf="signupForm.get('email')?.touched && signupForm.get('email')?.invalid">
+        <span *ngIf="signupForm.get('email')?.errors?.['required']">Email is required.</span>
+        <span *ngIf="signupForm.get('email')?.errors?.['email']">Please enter a valid email.</span>
+      </div>
+    </div>
+
+    <div class="form-field">
+      <label for="password">Password</label>
+      <input id="password" formControlName="password" type="password" placeholder="Password" autocomplete="off" />
+      <div class="note" *ngIf="signupForm.get('password')?.touched && signupForm.get('password')?.invalid">
+        <span *ngIf="signupForm.get('password')?.errors?.['required']">Password is required.</span>
+      </div>
+    </div>
+
+    <button type="submit" [disabled]="createAdminLoading">Create Admin</button>
+    <button type="button" (click)="hideAll()">Cancel</button>
+    <div *ngIf="createAdminLoading" class="loading">Creating admin...</div>
+    <div *ngIf="createAdminError" class="error">{{ createAdminError }}</div>
+    <div *ngIf="createAdminSuccess" class="success">{{ createAdminSuccess }}</div>
+  </form>
+</div>

@@ -1,6 +1,5 @@
-// index.js
 const express = require('express');
-const authRoutes = require('./authRoutes'); // Import auth routes
+const authRoutes = require('./authRoutes');
 const userRoutes = require('./userRoutes');
 const adminRoutes = require('./adminRoutes');
 const topicRoutes = require('./topicRoutes');

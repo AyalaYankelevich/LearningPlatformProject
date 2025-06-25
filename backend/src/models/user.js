@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-// const outerArraySchema = require('./array'); // Import the questionsAndResponsesSchema
 
 // User Schema
 const userSchema = new mongoose.Schema({
@@ -7,7 +6,7 @@ const userSchema = new mongoose.Schema({
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
     email: { type: String, required: true, unique: true },
-    password: { type: String, required: true }, // Add password field
+    password: { type: String, required: true },
     role: { type: String, enum: ['user', 'admin'], default: 'user' },
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now },
@@ -17,12 +16,11 @@ const userSchema = new mongoose.Schema({
 userSchema.pre('findOneAndUpdate', function(next) {
     const update = this.getUpdate();
     if (update.id) {
-        delete update.id; // Remove id from update
+        delete update.id;
     }
     next();
 });
 
-// Create User Model
 const User = mongoose.model('User', userSchema);
 
 module.exports = User;

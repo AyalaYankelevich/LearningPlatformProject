@@ -5,7 +5,7 @@ const Topic = require('../models/topic');
 exports.createSubTopic = async (req, res) => {
 
     try {
-        const subTopicData = req.body; // Define subTopicData
+        const subTopicData = req.body;
         const existingSubTopic = await subTopicService.subTopicExists(subTopicData.id);
         if (existingSubTopic) {
             return res.status(400).send({ message: 'Sub-topic already exists' });
@@ -16,7 +16,6 @@ exports.createSubTopic = async (req, res) => {
             return res.status(400).send({ message: 'Topic with this id does not exist' });
         }
 
-        // Create sub-topic with valid topicId
         const subTopic = await subTopicService.createSubTopic(subTopicData);
 
         const response = {
@@ -27,7 +26,7 @@ exports.createSubTopic = async (req, res) => {
         };
         res.status(201).send(response);
     } catch (error) {
-        console.error(error); // Log the error for debugging
+        console.error(error);
         res.status(500).send({ message: 'Internal Server Error', error: error.message });
     }
 };
@@ -47,6 +46,24 @@ exports.getAllSubTopics = async (req, res) => {
         res.status(500).send(error);
     }
 };
+
+// Get all sub-topics by topicId
+exports.getSubTopicsByTopicId = async (req, res) => {
+    const topicId = req.params.topicId;
+    try {
+        const subTopics = await subTopicService.getSubTopicsByTopicId(topicId);
+        const response = subTopics.map(subTopic => ({
+            id: subTopic.id,
+            title: subTopic.title,
+            topicId: subTopic.topicId,
+            created_at: subTopic.created_at,
+        }));
+        res.status(200).send(response);
+    } catch (error) {
+        res.status(500).send(error);
+    }
+};
+
 
 // Get a sub-topic by ID
 exports.getSubTopicById = async (req, res) => {
@@ -84,7 +101,7 @@ exports.updateSubTopic = async (req, res) => {
         };
         res.status(200).send(response);
     } catch (error) {
-        res.status(400).send(error);
+        res.status(400).send({ message: 'Bad Request', error: error.message });
     }
 };
 

@@ -1,5 +1,5 @@
 const userService = require('../services/userService');
-const bcrypt = require('bcrypt'); // Import bcrypt for hashing passwords
+const bcrypt = require('bcrypt');
 
 // Create user
 exports.createUser = async (req, res) => {
@@ -10,14 +10,12 @@ exports.createUser = async (req, res) => {
         }
 
         // Hash the password before creating the user
-        const hashedPassword = await bcrypt.hash(req.body.password, 10); // 10 is the salt rounds
+        const hashedPassword = await bcrypt.hash(req.body.password, 10);
         const newUserData = { 
             ...req.body, 
             password: hashedPassword,
-            // Remove questionsAndResponses since it's no longer part of the user model
         };
 
-        // Proceed to create the user since it doesn't exist
         const user = await userService.createUser(newUserData);
         const response = {
             id: user.id,
@@ -27,7 +25,6 @@ exports.createUser = async (req, res) => {
             role: user.role,
             createdAt: user.createdAt,
             updatedAt: user.updatedAt,
-            // Remove questionsAndResponses from the response
         };
         res.status(201).send(response);
     } catch (error) {
@@ -50,7 +47,6 @@ exports.getAllUsers = async (req, res) => {
             role: user.role,
             createdAt: user.createdAt,
             updatedAt: user.updatedAt,
-            // Remove questionsAndResponses from the response
         }));
         res.status(200).send(response);
     } catch (error) {
@@ -60,7 +56,7 @@ exports.getAllUsers = async (req, res) => {
 
 // Get a user by ID
 exports.getUserById = async (req, res) => {
-    const userId = req.params.id; // Assuming the ID is passed as a URL parameter
+    const userId = req.params.id;
     try {
         const user = await userService.getUserById(userId);
         if (!user) {
@@ -77,14 +73,14 @@ exports.getUserById = async (req, res) => {
         };
         res.status(200).send(response);
     } catch (error) {
-        console.error(error); // Log the error for debugging
+        console.error(error);
         res.status(500).send({ message: 'Internal Server Error', error: error.message });
     }
 };
 
 // Update user
 exports.updateUser = async (req, res) => {
-    const userId = req.params.id; // Assuming the ID is passed as a URL parameter
+    const userId = req.params.id;
     try {
         const user = await userService.updateUserById(userId, req.body);
         if (!user) {
@@ -98,19 +94,18 @@ exports.updateUser = async (req, res) => {
             role: user.role,
             createdAt: user.createdAt,
             updatedAt: user.updatedAt,
-            // Remove questionsAndResponses from the response
         };
 
         res.status(200).send(response);
     } catch (error) {
-        console.error(error); // Log the error for debugging
+        console.error(error);
         res.status(500).send({ message: 'Internal Server Error', error: error.message });
     }
 };
 
 // Delete a user by custom ID
 exports.deleteUser = async (req, res) => {
-    const userId = req.params.id; // Assuming the ID is passed as a URL parameter
+    const userId = req.params.id;
     try {
         const user = await userService.deleteUserById(userId);
         if (!user) {

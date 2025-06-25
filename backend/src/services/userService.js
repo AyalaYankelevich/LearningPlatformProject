@@ -25,5 +25,3 @@ exports.updateUserById = async (userId, updateData) => {
 exports.deleteUserById = async (userId) => {
     return await User.findOneAndDelete({ id: userId });
 };
-    
-// return await User.findByIdAndUpdate(userId, updateData, { new: true, runValidators: true });

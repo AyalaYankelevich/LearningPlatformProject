@@ -1,0 +1,59 @@
+<div class="container">
+  <h2 *ngIf="isLogin">Log In</h2>
+  <h2 *ngIf="!isLogin">Sign Up</h2>
+  <div class="auth-msg" *ngIf="!isLogin && authMsg">{{authMsg}}</div>
+
+  <!-- Login Form -->
+  <form *ngIf="isLogin" [formGroup]="loginForm" (ngSubmit)="onLogin()" class="pretty-form">
+    <input formControlName="email" type="email" placeholder="Email" />
+    <div class="note" *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.invalid">
+      <span *ngIf="loginForm.get('email')?.errors?.['required']">Email is required.</span>
+      <span *ngIf="loginForm.get('email')?.errors?.['email']">Please enter a valid email (must include "&#64;" and domain).</span>
+    </div>
+
+    <input formControlName="password" type="password" placeholder="Password" />
+    <div class="note" *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.invalid">
+      <span *ngIf="loginForm.get('password')?.errors?.['required']">Password is required.</span>
+    </div>
+
+    <button type="submit" [disabled]="loading">Log In</button>
+    <div class="toggle-text">
+      Don't have an account? <span class="toggle-link" (click)="toggleForm()">Sign Up</span>
+    </div>
+    <div class="auth-msg" *ngIf="isLogin && authMsg">{{authMsg}}</div>
+  </form>
+
+  <!-- Signup Form -->
+  <form *ngIf="!isLogin" [formGroup]="signupForm" (ngSubmit)="onSignup()" class="pretty-form">
+    <input formControlName="firstName" placeholder="First Name" />
+    <div class="note" *ngIf="signupForm.get('firstName')?.touched && signupForm.get('firstName')?.invalid">
+      <span *ngIf="signupForm.get('firstName')?.errors?.['required']">First name is required.</span>
+    </div>
+
+    <input formControlName="lastName" placeholder="Last Name" />
+    <div class="note" *ngIf="signupForm.get('lastName')?.touched && signupForm.get('lastName')?.invalid">
+      <span *ngIf="signupForm.get('lastName')?.errors?.['required']">Last name is required.</span>
+    </div>
+
+    <input formControlName="id" placeholder="ID" />
+    <div class="note" *ngIf="signupForm.get('id')?.touched && signupForm.get('id')?.invalid">
+      <span *ngIf="signupForm.get('id')?.errors?.['required']">ID is required.</span>
+    </div>
+
+    <input formControlName="email" type="email" placeholder="Email" />
+    <div class="note" *ngIf="signupForm.get('email')?.touched && signupForm.get('email')?.invalid">
+      <span *ngIf="signupForm.get('email')?.errors?.['required']">Email is required.</span>
+      <span *ngIf="signupForm.get('email')?.errors?.['email']">Please enter a valid email (must include "&#64;" and domain).</span>
+    </div>
+
+    <input formControlName="password" type="password" placeholder="Password" />
+    <div class="note" *ngIf="signupForm.get('password')?.touched && signupForm.get('password')?.invalid">
+      <span *ngIf="signupForm.get('password')?.errors?.['required']">Password is required.</span>
+    </div>
+
+    <button type="submit" [disabled]="loading">Sign Up</button>
+    <div class="toggle-text">
+      Already have an account? <span class="toggle-link" (click)="toggleForm()">Log In</span>
+    </div>
+  </form>
+</div>

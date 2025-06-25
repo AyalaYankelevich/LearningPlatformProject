@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt'); // Import bcrypt for hashing passwords
-const config = require('../config/config'); // Adjust the path as necessary
-const authService = require('../services/authService'); // Import your auth service
+const bcrypt = require('bcrypt');
+const config = require('../config/config');
+const authService = require('../services/authService');
 const userService = require('../services/userService');
 
 exports.login = async (req, res) => {
@@ -10,12 +10,12 @@ exports.login = async (req, res) => {
     try {
         const user = await authService.userExists(email);
         if (!user) {
-            return res.status(404).send({ message: 'User not found' });
+            return res.status(404).send({ message: 'User does not exist' });
         }
 
         const isMatch = await authService.comparePassword(password, user.password);
         if (!isMatch) {
-            return res.status(401).send({ message: 'Invalid credentials' });
+            return res.status(401).send({ message: 'Incorrect email or password' });
         }
 
         const token = jwt.sign({ id: user.id, email: user.email, role: user.role }, config.jwtSecret, {
@@ -34,7 +34,6 @@ exports.register = async (req, res) => {
     const { firstName, lastName, id, email, password } = req.body;
 
     try {
-
         // Check if the user already exists by id
         const existingUserById = await authService.userExistsById(id);
         if (existingUserById) {
@@ -48,7 +47,7 @@ exports.register = async (req, res) => {
         }
 
         // Hash the password before creating the user
-        const hashedPassword = await bcrypt.hash(password, 10); // 10 is the salt rounds
+        const hashedPassword = await bcrypt.hash(password, 10);
 
         // Create the new user data
         const newUserData = {
@@ -62,14 +61,14 @@ exports.register = async (req, res) => {
         // Create the new user
         const newUser = await userService.createUser(newUserData);
 
-        // Optionally, generate a JWT token for the new user
+        // Generate a JWT token for the new user
         const token = jwt.sign({ id: newUser.id, email: newUser.email, role: newUser.role }, config.jwtSecret, {
             expiresIn: config.jwtExpiration,
         });
 
         res.status(201).send({ token });
     } catch (error) {
-        console.error(error); // Log the error for debugging
+        console.error(error);
         res.status(500).send({ message: 'Internal Server Error', error: error.message });
     }
 };

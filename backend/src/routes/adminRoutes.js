@@ -1,10 +1,16 @@
 const express = require('express');
 const router = express.Router();
-const authenticateToken = require('../middleware/authMiddleware'); // Import the middleware
+const authenticateToken = require('../middleware/authMiddleware');
 const adminController = require('../controllers/adminController');
 
-router.post('/admins', adminController.createAdmin);
-router.get('/users', authenticateToken, adminController.getAllUsers);                  // Route to get all users
-router.get('/users/:id/prompts', authenticateToken, adminController.getUserPrompts);  // Route to get prompts for a specific user
+// Create a new admin
+router.post('/', adminController.createAdmin);
+
+// Get all users
+router.get('/users', authenticateToken, adminController.getAllUsers);
+
+// Get a user's prompts
+router.get('/userPrompts/:id', authenticateToken, adminController.getPromptsByUser);
+
 
 module.exports = router;

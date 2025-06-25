@@ -14,7 +14,12 @@ exports.subTopicExists = async (id) => {
 
 // Get all sub-topics
 exports.getAllSubTopics = async () => {
-    return await SubTopic.find().populate('topicId'); // Populate topicId if needed
+    return await SubTopic.find().populate('topicId');
+};
+
+// Get all sub-topics by topicId
+exports.getSubTopicsByTopicId = async (topicId) => {
+    return await SubTopic.find({topicId}).populate('topicId');
 };
 
 // Get a sub-topic by ID

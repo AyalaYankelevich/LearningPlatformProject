@@ -1,9 +1,9 @@
 const express = require('express');
-const { generateCompletionHandler } = require('../controllers/gptController'); // Destructure the specific function
-const authenticateToken = require('../middleware/authMiddleware'); // Import the middleware
+const { generateCompletionHandler } = require('../controllers/gptController');
+const authenticateToken = require('../middleware/authMiddleware');
 const router = express.Router();
 
-// Gpt route to generate content
-router.post('/send-question', authenticateToken, generateCompletionHandler); // Use the specific function
+// send-question to GPT
+router.post('/send-question', authenticateToken, generateCompletionHandler);
 
 module.exports = router;
