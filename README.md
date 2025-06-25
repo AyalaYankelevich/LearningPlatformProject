@@ -32,11 +32,18 @@ git clone https://github.com/AyalaYankelevich/LearningPlatformProject.git
 
 cd LearningPlatformProject
 
-**2. Copy and update environment variables:**
+**2. Setup Environment Variables:**
 
-Copy .env.example to .env in both /backend and /frontend (if needed).
+1. Copy the example environment file:
 
-Fill in secrets and connection details.
+JWT_SECRET=your_JWT_SECRET
+
+JWT_EXPIRATION=your_JWT_EXPIRATION
+
+OPENAI_API_KEY=your_openai_api_key
+
+
+2. Open the `.env` file and fill in your values (API keys, etc).
 
 **3. Install dependencies:**
 
