@@ -10,6 +10,12 @@ A full-stack learning platform with AI integration, user authentication (token-b
 - Configuration Management: dotenv
 - Containerization: Docker, Docker Compose
 
+## Features
+
+- **Admin Dashboard**: Admins can view all users and their prompts, as well as assign additional admin roles.
+- **Personalized Learning**: Users can choose a topic and sub-topic to learn about with GPT-powered AI assistance.
+- **User History**: Each user can view their own learning and prompt history for easy reference and review.
+
 ## Assumptions:
 - The backend is built with Node.js and Express.
 - The frontend uses Angular (TypeScript).
@@ -64,5 +70,4 @@ docker-compose up -d     (Ensure Docker is installed and running.)
 - Database (MongoDB with Docker Compose)
 
   The default setup uses Docker Compose to run MongoDB on localhost:27017.
-  
-  Connection string is managed via .env.
+
