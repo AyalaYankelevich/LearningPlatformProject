@@ -40,7 +40,7 @@ Fill in secrets and connection details.
 
   npm install
 
-- Frontend:
+-- Frontend:
 
   cd frontend
 
