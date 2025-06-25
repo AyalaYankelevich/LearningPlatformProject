@@ -1,0 +1,86 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@200;700&display=swap');
+
+:root {
+  --apple-green: #4cd964;
+  --apple-green-light: #e8fbe5;
+  --black: #181818;
+  --white: #fff;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  background: var(--apple-green-light);
+  font-family: 'Roboto', Arial, Helvetica, sans-serif;
+  font-weight: 200;
+}
+
+body {
+  min-height: 100vh;
+  min-width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+app-root {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+}
+
+.container {
+  max-width: 480px;
+  background: var(--white);
+  border-radius: 22px;
+  padding: 48px 32px 38px 32px;
+  box-shadow: 0 6px 36px #4cd96436;
+  text-align: center;
+  border: 2px solid var(--apple-green);
+}
+
+h1 
+{
+  color: var(--black);
+  font-family: 'Roboto', Arial, Helvetica, sans-serif;
+  font-size: 2.3rem;
+  font-weight: 200;
+  margin-bottom: 38px;
+  letter-spacing: 1.1px;
+}
+
+.come-in-btn {
+  padding: 15px 48px;
+  font-size: 1.18rem;
+  font-family: 'Roboto', Arial, Helvetica, sans-serif;
+  font-weight: 200;
+  background: linear-gradient(90deg, var(--apple-green) 80%, var(--black));
+  color: var(--white);
+  border: 1.5px solid var(--black);
+  border-radius: 10px;
+  box-shadow: 0 2px 14px #4cd96433;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s, color 0.2s, border 0.2s;
+  margin-top: 18px;
+  letter-spacing: 0.03em;
+}
+
+.come-in-btn:hover {
+  background: linear-gradient(90deg, var(--black) 30%, var(--apple-green) 100%);
+  color: var(--apple-green);
+  box-shadow: 0 4px 24px #4cd96455;
+  border: 1.5px solid var(--apple-green);
+}
+.center-viewport {
+  min-height: 100vh;
+  min-width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
