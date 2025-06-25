@@ -36,11 +36,11 @@ cd LearningPlatformProject
 
 1. Copy the example environment file:
 
-JWT_SECRET=your_JWT_SECRET
+  JWT_SECRET=your_JWT_SECRET
 
-JWT_EXPIRATION=your_JWT_EXPIRATION
+  JWT_EXPIRATION=your_JWT_EXPIRATION
 
-OPENAI_API_KEY=your_openai_api_key
+  OPENAI_API_KEY=your_openai_api_key
 
 
 2. Open the `.env` file and fill in your values (API keys, etc).
